@@ -15,7 +15,7 @@ export class User {
     @Prop({required : true})
     middleName : string;
         
-    @Prop({required : true, unique : true, lowercase : true, validate : isEmail})
+    @Prop({required : true, unique : true, validate : isEmail})
     email : string;
         
     @Prop({required : true, minlength : 8, select : false})
@@ -47,6 +47,9 @@ export class User {
    
     @Prop()
     profileImage : string;
+
+    @Prop()
+    refreshToken : string;
 
     @Prop({default : Date.now()})
     createdAt : Date;

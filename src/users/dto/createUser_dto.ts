@@ -13,4 +13,5 @@ export class CreateUserDTO {
     workExperience : string;
     address : string;
     profileImage : string;
+    refreshToken : string;
 }

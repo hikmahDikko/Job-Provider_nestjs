@@ -11,4 +11,5 @@ export class UpdateUserDTO {
     workExperience : string;
     address : string;
     profileImage : string;
+    refreshToken : string;
 }

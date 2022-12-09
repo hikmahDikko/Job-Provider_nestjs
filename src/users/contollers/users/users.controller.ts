@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateUserDTO } from '../../dto/createUser_dto';
 import { UsersService } from '../../services/users/users.service';
 import { UpdateUserDTO } from '../../dto/updateUser.dto';
@@ -9,32 +9,34 @@ export class UsersController {
 
     constructor(private usersServices : UsersService) {}
 
-    @UseInterceptors(ClassSerializerInterceptor)
     @Get()
-    async getUsers(){
-        const users = await this.usersServices.findUser();
+    async findAll(){
+        const users = await this.usersServices.findAll();
         return users;
     }
 
-    @UseInterceptors(ClassSerializerInterceptor)
     @Post()
-    createUser(@Body() createUserDto : CreateUserDTO){
-        return this.usersServices.createUser(createUserDto);
+    create(@Body() createUserDto : CreateUserDTO){
+        return this.usersServices.create(createUserDto);
     }
 
-    @UseInterceptors(ClassSerializerInterceptor)
+    @Get('login')
+    async findById(@Param("id") id : string){
+        const users = await this.usersServices.findById(id);
+        return users;
+    }
+
     @Patch(':id')
-    async updateUserById(
-        @Param("id")  id: mongoose.Schema.Types.ObjectId, 
+    async update(
+        @Param("id")  id: string, 
         @Body() updateUserDTO : UpdateUserDTO) {
-            await this.usersServices.updateUser(id, updateUserDTO)
+            await this.usersServices.update(id, updateUserDTO)
     }
 
-    @UseInterceptors(ClassSerializerInterceptor)
     @Delete(':id')
-    async deleteUser(
-        @Param("id") id : mongoose.Schema.Types.ObjectId) {
-            await this.usersServices.deleteUser(id)
+    async delete(
+        @Param("id") id : string) {
+            await this.usersServices.delete(id)
 
     }
 
